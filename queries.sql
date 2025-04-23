@@ -18,7 +18,7 @@ CREATE TABLE entries (
   FOREIGN KEY (id_author) REFERENCES authors(id_author)
 );
 
--- Agregar restricción de unicidad al título
+-- Agregar restricción al título
 ALTER TABLE entries
 ADD CONSTRAINT unique_title UNIQUE (title);
 
