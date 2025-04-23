@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// Mi app va a estar escuchand en el puerto 3000
+// Mi app va a estar escuchando en el puerto 3000
 // Lanzar el servidor
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
