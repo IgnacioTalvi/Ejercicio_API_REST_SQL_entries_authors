@@ -1,12 +1,12 @@
 const pool = require("../config/db_pgsql"); // conexión a la BBDD
-const queries = require("../queries/entries.queries"); // Queries SQL
+const queries = require("../queries/author.queries"); // Queries SQL
 
 // GET
 const getAllAuthors = async () => {
   let client, result;
   try {
     client = await pool.connect(); // Espera a abrir conexion
-    const data = await client.query(queries.getAllEntries);
+    const data = await client.query(`SELECT * from authors`);
     result = data.rows;
   } catch (err) {
     console.log(err);
@@ -16,6 +16,43 @@ const getAllAuthors = async () => {
   }
   return result;
 };
+
+const updateAuthor = async (req, res) => {
+  const modifiedEntry = req.body; // {title,content,date,email,category,old_title}
+  if (
+    "name" in modifiedEntry &&
+    "surname" in modifiedEntry &&
+    "email" in modifiedEntry &&
+    "image" in modifiedEntry
+  ) {
+    try {
+      const response = await entry.updateEntry(modifiedEntry);
+      res.status(200).json({
+        items_updated: response,
+        data: modifiedEntry,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Error en la BBDD" });
+    }
+  } else {
+    res.status(400).json({ error: "Faltan campos en la entrada" });
+  }
+};
+
+// const getAllAuthors = async () => {
+//   let client, result;
+//   try {
+//     client = await pool.connect(); // Espera a abrir conexion
+//     const data = await client.query(queries.getAllAuthors);
+//     result = data.rows;
+//   } catch (err) {
+//     console.log(err);
+//     throw err;
+//   } finally {
+//     client.release();
+//   }
+//   return result;
+// };
 
 // CREATE
 const createAuthor = async (entry) => {
@@ -62,6 +99,7 @@ const entries = {
   getAllAuthors,
   createAuthor,
   getAuthorsByEmail,
+  updateAuthor,
   //deleteEntry
   //updateEntry
 };

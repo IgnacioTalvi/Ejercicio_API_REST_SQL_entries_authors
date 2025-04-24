@@ -3,7 +3,7 @@ const entriesController = require("../controllers/entries.controller");
 const router = express.Router();
 
 router.get("/", entriesController.getAllEntries);
-router.put("/", entriesController.updateEntry);
-router.get("/", entriesController.deleteEntry);
+// router.put("/", entriesController.updateEntry);
+// router.get("/", entriesController.deleteEntry);
 
 module.exports = router;

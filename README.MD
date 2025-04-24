@@ -6,16 +6,15 @@ A continuación tienes las queries necesarias para el ejercicio, tendrás que ej
 
 [Fichero queries SQL](https://github.com/TheBridge-FullStackDeveloper/temario_fullstack_FT_sep23_MAD/blob/master/utils/ejercicioSQL/queries.sql)
 
-
 ## Tareas a realizar
 
 - Primero, vamos a modificar la BBDD para que no se puedan insertar entries repetidas por título (Hay que alterar algo en la tabla)
 
 - Después, completamos la API con las siguientes rutas para entries:
 
-    - [GET] http://localhost:3000/api/entries
+  - [GET] http://localhost:3000/api/entries
 
-    #### Modificar la query SQL para que me devuelva una respuesta con los datos del autor y sin ID de la entry:
+  #### Modificar la query SQL para que me devuelva una respuesta con los datos del autor y sin ID de la entry:
 
 ```
 {
@@ -28,6 +27,7 @@ A continuación tienes las queries necesarias para el ejercicio, tendrás que ej
 "image": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
 }
 ```
+
 En vez de esta respuesta, que es la que está ahora:
 
 ```
@@ -44,23 +44,25 @@ En vez de esta respuesta, que es la que está ahora:
 - [PUT] http://localhost:3000/api/entries/ (parecido a POST) modifica una entry por completo con nuevos datos y retorna un status 200. Buscar por título para editar entry.
 
 Payload:
+
 ```
 {message: "Se ha modificado la entry 'Título de noticia' "}
 
 ```
 
-- [DELETE] http://localhost:3000/api/entries/ Borra una entry y retorna un status 200. Búsqueda por título de entry para borrar. 
-Payload: 
+- [DELETE] http://localhost:3000/api/entries/ Borra una entry y retorna un status 200. Búsqueda por título de entry para borrar.
+  Payload:
+
 ```
 {message: "Se ha borrado la entry 'Título de noticia' "}
 ```
 
 #### A continuación, crearemos las rutas para los autores:
 
- 
 - [GET] http://localhost:3000/api/authors Retorna un objeto con los datos de todos los autores. Retorna un status 200.
 
 Payload:
+
 ```
 {
     "id_author": 1,
@@ -76,7 +78,7 @@ Payload:
 ```
 
 - [GET] http://localhost:3000/api/authors?email=alejandru@thebridgeschool.es Retorna un objeto con los datos del autor buscado. Retorna un status 200
-Payload:
+  Payload:
 
 ```
 {
@@ -89,18 +91,31 @@ Payload:
 ```
 
 - [POST] http://localhost:3000/api/authors/ Se envía por POST los datos del autor a crear y retorna un status 201. Payload:
+
 ```
 {message: "usuario creado: guillermu@thebridgeschool.es"}
 ```
 
-- [PUT] http://localhost:3000/api/authors/ Actualiza los datos de un autor y retorna un status 200. 
-Payload: 
+- [PUT] http://localhost:3000/api/authors/ Actualiza los datos de un autor y retorna un status 200.
+  Payload:
+
 ```
 {message: "usuario actualizado: guillermu@thebridgeschool.es"}
 ```
 
-- [DELETE] http://localhost:3000/api/authors/ Borra un autor y retorna un status 200. Búsqueda por email. 
-Payload: 
+- [DELETE] http://localhost:3000/api/authors/ Borra un autor y retorna un status 200. Búsqueda por email.
+  Payload:
+
 ```
 {message: "Se ha borrado guillermu@thebridgeschool.es"}
 ```
+
+Que fichero tocar primero: queries.sql.js
+
+segundo: author.queries.js
+
+tercero: authors.models.js
+
+cuarto: authors.controllers.js
+
+quinto: authors.routers.js

@@ -2,6 +2,7 @@ const pool = require("../config/db_pgsql"); // conexión a la BBDD
 const queries = require("../queries/entries.queries"); // Queries SQL
 
 // GET
+
 const getEntriesByEmail = async (email) => {
   let client, result;
   try {
@@ -22,7 +23,11 @@ const getAllEntries = async () => {
   let client, result;
   try {
     client = await pool.connect(); // Espera a abrir conexion
-    const data = await client.query(queries.getAllEntries);
+    const data =
+      await client.query(`SELECT entries.title, entries.content, entries.date, entries.category, authors.name, authors.surname, authors.image 
+from entries
+INNER JOIN authors 
+ON entries.id_author = authors.id_author`);
     result = data.rows;
   } catch (err) {
     console.log(err);

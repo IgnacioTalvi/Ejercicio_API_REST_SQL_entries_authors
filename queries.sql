@@ -47,7 +47,6 @@ VALUES
 -- Buscar entries por email usuario
 SELECT * FROM entries WHERE id_author=(SELECT id_author FROM authors WHERE email='alejandru@thebridgeschool.es');
 
-
 -- Buscar datos por email de usuario y cruzar datos
 SELECT e.title,e.content,e.date,e.category,a.name,a.surname,a.image
 FROM entries AS e
@@ -55,7 +54,6 @@ INNER JOIN authors AS a
 ON e.id_author=a.id_author
 WHERE a.email='alejandru@thebridgeschool.es'
 ORDER BY e.title;
-
 
 -- Buscar datos por email de 2 usuarios y cruzar datos
 SELECT entries.title,entries.content,entries.date,entries.category,authors.name,authors.surname,authors.image
@@ -69,3 +67,5 @@ ORDER BY entries.title;
 UPDATE entries
 	SET content='Back is back', date='2024-06-17', id_author=(SELECT id_author FROM authors WHERE email='alvaru@thebridgeschool.es'), category='Software'
 	WHERE title='Estamos de Lunes de Back';
+
+  

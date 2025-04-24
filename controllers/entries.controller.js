@@ -1,10 +1,14 @@
 const entry = require("../models/entries.model"); // Importar el modelo de la BBDD
-
+const entriesModel = require("../models/entries.model");
 //getEntries
 // if(hay email)
 //     busca por mail
 // else
 //     busca todo
+const getAllEntries = async (req, res) => {
+  const data = await entriesModel.getAllEntries();
+  res.status(200).json(data); // [] con las entries encontradas
+};
 
 // GET http://localhost:3000/entries --> ALL
 // GET http://localhost:3000/entries?email=hola@gmail.com --> por email
@@ -37,8 +41,10 @@ const createEntry = async (req, res) => {
 };
 
 module.exports = {
+  getAllEntries,
   getEntries,
   createEntry,
+
   //deleteEntry, --> DELETE
   //updateEntry --> PUT
 };

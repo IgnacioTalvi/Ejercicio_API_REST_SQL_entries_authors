@@ -1,9 +1,9 @@
 const express = require("express");
-const entriesController = require("../controllers/authors.controller");
+const authorController = require("../controllers/authors.controller");
 const router = express.Router();
 
-router.get("/", authorController.getAllEntries);
-router.put("/", authorController.updateEntry);
-router.get("/", authorController.deleteEntry);
+router.get("/", authorController.getAllAuthors);
+router.put("/", authorController.updateAuthor);
+router.delete("/", authorController.deleteAuthor);
 
 module.exports = router;
