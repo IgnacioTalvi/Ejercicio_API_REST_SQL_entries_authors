@@ -18,7 +18,7 @@ const getAllAuthors = async () => {
 };
 
 const updateAuthor = async (req, res) => {
-  const modifiedEntry = req.body; // {title,content,date,email,category,old_title}
+  const modifiedEntry = req.body;
   if (
     "name" in modifiedEntry &&
     "surname" in modifiedEntry &&

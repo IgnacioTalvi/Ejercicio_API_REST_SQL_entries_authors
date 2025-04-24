@@ -30,6 +30,20 @@ const getEntries = async (req, res) => {
 //     email:"alejandru@thebridgeschool.es",
 //     category:"sucesos"}
 
+const updateEntry = (req, res) => {
+  console.log(req.body); // por body se recibe el libro a editar
+  try {
+    //llamar al modelo entries
+    //pasarle criterio de busqueda(titulo antiguo) + datos actualizados
+
+    //devolver resultado por json
+
+    res.status(200).json();
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 // Crear entry por email
 const createEntry = async (req, res) => {
   const newEntry = req.body; // {title,content,email,category}
@@ -44,6 +58,7 @@ module.exports = {
   getAllEntries,
   getEntries,
   createEntry,
+  updateEntry,
 
   //deleteEntry, --> DELETE
   //updateEntry --> PUT

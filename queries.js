@@ -6,10 +6,15 @@ const querySelectAllEntriesAuthors = `
 `;
 
 const updateAuthor = `
-  UPDATE authors 
-  SET name = $1, surname = $2, email = $3, image = $4
-  WHERE id_author = $5
-  RETURNING *
+ UPDATE entries
+SET 
+id_entry = $1,
+title = $2,
+content = $3,
+date = $4,
+id_author = $5,
+category = $6
+WHERE title = $7
 `;
 
 module.exports = {
