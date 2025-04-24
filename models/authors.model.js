@@ -2,23 +2,7 @@ const pool = require("../config/db_pgsql"); // conexión a la BBDD
 const queries = require("../queries/entries.queries"); // Queries SQL
 
 // GET
-const getEntriesByEmail = async (email) => {
-  let client, result;
-  try {
-    client = await pool.connect(); // Espera a abrir conexion
-    const data = await client.query(queries.getEntriesByEmail, [email]);
-    result = data.rows;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  } finally {
-    client.release();
-  }
-  return result;
-};
-
-// GET
-const getAllEntries = async () => {
+const getAllAuthors = async () => {
   let client, result;
   try {
     client = await pool.connect(); // Espera a abrir conexion
@@ -34,12 +18,12 @@ const getAllEntries = async () => {
 };
 
 // CREATE
-const createEntry = async (entry) => {
+const createAuthor = async (entry) => {
   const { title, content, email, category } = entry;
   let client, result;
   try {
     client = await pool.connect(); // Espera a abrir conexion
-    const data = await client.query(queries.createEntry, [
+    const data = await client.query(queries.createAuthor, [
       title,
       content,
       email,
@@ -55,13 +39,29 @@ const createEntry = async (entry) => {
   return result;
 };
 
+// GET author by email
+const getAuthorsByEmail = async (email) => {
+  let client, result;
+  try {
+    client = await pool.connect(); // Espera a abrir conexion
+    const data = await client.query(queries.getAuthorByEmail, [email]);
+    result = data.rows;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  } finally {
+    client.release();
+  }
+  return result;
+};
+
 // DELETE
 //UPDATE
 
 const entries = {
-  getEntriesByEmail,
-  getAllEntries,
-  createEntry,
+  getAllAuthors,
+  createAuthor,
+  getAuthorsByEmail,
   //deleteEntry
   //updateEntry
 };
