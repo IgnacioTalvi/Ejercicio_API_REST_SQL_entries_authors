@@ -110,7 +110,9 @@ Payload:
 {message: "Se ha borrado guillermu@thebridgeschool.es"}
 ```
 
-Que fichero tocar primero: queries.sql.js
+Que fichero tocar primero:
+
+queries.sql.js
 
 segundo: author.queries.js
 

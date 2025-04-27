@@ -68,4 +68,26 @@ UPDATE entries
 	SET content='Back is back', date='2024-06-17', id_author=(SELECT id_author FROM authors WHERE email='alvaru@thebridgeschool.es'), category='Software'
 	WHERE title='Estamos de Lunes de Back';
 
-  
+-- Modificar query para que devuelva una respuesta con los datos del autor y sin ID de la entry
+SELECT 
+      entries.title, 
+      entries.content, 
+      entries.date, 
+      entries.category,
+      authors.name, 
+      authors.surname, 
+      authors.image
+    FROM entries
+    LEFT JOIN authors ON entries.id_author = authors.id_author
+    ORDER BY entries.title ASC
+
+-- PUT para modificar una entrada con nuevos datos y que ha sido buscada por título.
+UPDATE 
+      entries
+WHERE 
+
+-- Retorna un objeto con los datos de todos los autores
+SELECT 
+      *
+    FROM authors;
+
