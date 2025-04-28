@@ -1,13 +1,28 @@
 const entry = require("../models/entries.model"); // Importar el modelo de la BBDD
 const entriesModel = require("../models/entries.model");
-//getEntries
-// if(hay email)
-//     busca por mail
-// else
-//     busca todo
-const getAllEntries = async (req, res) => {
-  const data = await entriesModel.getAllEntries();
-  res.status(200).json(data); // [] con las entries encontradas
+
+// Update entries by title
+const updateEntryByTitle = async (req, res) => {
+  const newEntry = req.body; // {title,content,email,category}
+  if (
+    "title" in newEntry &&
+    "content" in newEntry &&
+    "date" in newEntry &&
+    "category" in newEntry &&
+    "old_title" in newEntry
+  ) {
+    try {
+      const response = await entry.updateEntryByTitle(newEntry);
+      res.status(201).json({
+        items_created: response,
+        data: newEntry,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Error en la BBDD" });
+    }
+  } else {
+    res.status(400).json({ error: "Faltan campos en la entrada" });
+  }
 };
 
 // GET http://localhost:3000/entries --> ALL
@@ -55,7 +70,7 @@ const createEntry = async (req, res) => {
 };
 
 module.exports = {
-  getAllEntries,
+  updateEntryByTitle,
   getEntries,
   createEntry,
   updateEntry,

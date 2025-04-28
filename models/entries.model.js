@@ -1,6 +1,13 @@
 const pool = require("../config/db_pgsql"); // conexión a la BBDD
 const queries = require("../queries/entries.queries"); // Queries SQL
 
+// [PUT] - Update entries by title
+const updateEntryByTitle = async (oldTitle, newTitle, content, category) => {
+  const values = [newTitle, content, category, oldTitle];
+  const result = await pool.query(queries.updateEntryByTitle, values);
+  return result;
+};
+
 // GET
 
 const getEntriesByEmail = async (email) => {
@@ -94,3 +101,5 @@ createEntry(newEntry)
 // getEntriesByEmail("guillermu@thebridgeschool.es").then((data) =>
 //   console.log(data)
 // );
+
+module.exports = { updateEntryByTitle };
