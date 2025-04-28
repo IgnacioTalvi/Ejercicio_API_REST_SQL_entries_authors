@@ -91,3 +91,20 @@ SELECT
       *
     FROM authors;
 
+-- Retornar un objeto con los datos del autor por email
+SELECT * FROM authors WHERE email = $1
+
+-- Crear autor
+INSERT INTO authors (name, surname, email, image)
+    VALUES ($1, $2, $3, $4)
+
+-- Actualizar autor
+UPDATE authors
+    SET name = $1, surname = $2, image = $3
+    WHERE email = $4
+    RETURNING *
+
+-- Borrar un autor buscado por email
+DELETE FROM authors
+    WHERE email = $1
+    RETURNING *
