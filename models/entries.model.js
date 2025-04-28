@@ -17,27 +17,3 @@ module.exports = {
   updateEntryByTitle,
   deleteEntryByTitle,
 };
-
-// Pruebas
-
-// getEntriesByEmail("birja@thebridgeschool.es")
-// .then(data=>console.log(data))
-
-// getAllEntries()
-// .then(data=>console.log(data))
-
-/* let newEntry = {
-    title: "Se acabaron las mandarinas de TB",
-    content: "Corren rumores de que papa noel tenía un saco vacio y lo llenó",
-    email: "guillermu@thebridgeschool.es",
-    category: "sucesos"
-}
-
-createEntry(newEntry)
-    .then(data => console.log(data)) */
-
-// getEntriesByEmail("guillermu@thebridgeschool.es").then((data) =>
-//   console.log(data)
-// );
-
-module.exports = { updateEntryByTitle };
