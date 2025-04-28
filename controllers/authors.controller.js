@@ -3,24 +3,14 @@ const author = require("../models/authors.model");
 const authorsModel = require("../models/authors.model");
 const entriesModel = require("../models/entries.model");
 
-// // GET all authors
-// const getAllAuthors = async (req, res) => {
-//   let authors;
-//   if (req.query.email) {
-//     entries = await entry.getAllAuthors(req.query.email);
-//   } else {
-//     entries = await entry.getAllAuthors();
-//   }
-//   res.status(200).json(authors);
-// };
-
-//
+// Returns all authors
 const getAllAuthors = async (req, res) => {
   const data = await authorsModel.getAllAuthors();
   res.status(200).json(data); // [] con las entries encontradas
 };
 
-const getAuthors = async (req, res) => {
+// Get author by search
+const getAuthorByEmail = async (req, res) => {
   let entries;
   if (req.query.email) {
     entries = await author.getEntriesByEmail(req.query.email);
@@ -29,20 +19,6 @@ const getAuthors = async (req, res) => {
   }
   res.status(200).json(entries); // [] con las entries encontradas
 };
-
-// // CREATE new author
-// const createAuthor = async (req, res) => {
-//   console.log(req.body);
-
-//   try {
-//     const data = req.body;
-//     let answer = await new Product(data).save();
-//     res.status(201).json(answer);
-//   } catch (error) {
-//     console.log(`ERROR: ${error.stack}`);
-//     res.status(400).json({ msj: `ERROR: ${error.stack}` });
-//   }
-// };
 
 // GET one author
 const updateAuthor = (req, res) => {
@@ -84,7 +60,7 @@ const deleteAuthor = (req, res) => {
 
 module.exports = {
   getAllAuthors,
-  getAuthors,
+  getAuthorByEmail,
   updateAuthor,
   deleteAuthor,
 };

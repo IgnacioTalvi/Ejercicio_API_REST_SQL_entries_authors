@@ -2,7 +2,7 @@ const express = require("express");
 const entriesController = require("../controllers/entries.controller");
 const router = express.Router();
 
-// Get all entries
+// // Get todos los autores
 // router.get("/", entriesController.getAllEntries);
 
 // Update entries by title

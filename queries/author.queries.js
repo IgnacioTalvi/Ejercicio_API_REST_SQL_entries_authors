@@ -1,3 +1,9 @@
+const getAllAuthors = `SELECT 
+      *
+    FROM authors;`;
+
+const getAuthorByEmail = `SELECT * FROM authors WHERE email = $1`;
+
 const queries = `SELECT 
       entries.title, 
       entries.content, 
@@ -10,8 +16,4 @@ const queries = `SELECT
     LEFT JOIN authors ON entries.id_author = authors.id_author
     ORDER BY entries.title ASC`;
 
-const getAllAuthors = `SELECT 
-      *
-    FROM authors;`;
-
-module.exports = { queries, getAllAuthors };
+module.exports = { getAllAuthors, getAuthorByEmail };
