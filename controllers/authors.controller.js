@@ -1,6 +1,7 @@
 // Import database model
 const author = require("../models/authors.model");
 const authorsModel = require("../models/authors.model");
+const entriesModel = require("../models/entries.model");
 
 // // GET all authors
 // const getAllAuthors = async (req, res) => {

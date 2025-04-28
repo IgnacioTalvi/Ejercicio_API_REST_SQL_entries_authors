@@ -1,55 +1,70 @@
-const entry = require("../models/entries.model"); // Importar el modelo de la BBDD
-const entriesModel = require("../models/entries.model");
+const {
+  updateEntryByTitle: modelUpdateEntryByTitle,
+  deleteEntryByTitle: modelDeleteEntryByTitle,
+} = require("../models/entries.model");
 
 // Update entries by title
-const updateEntryByTitle = async (req, res) => {
-  const newEntry = req.body; // {title,content,email,category}
-  if (
-    "title" in newEntry &&
-    "content" in newEntry &&
-    "date" in newEntry &&
-    "category" in newEntry &&
-    "old_title" in newEntry
-  ) {
-    try {
-      const response = await entry.updateEntryByTitle(newEntry);
-      res.status(201).json({
-        items_created: response,
-        data: newEntry,
-      });
-    } catch (error) {
-      res.status(500).json({ error: "Error en la BBDD" });
+const updateEntry = async (req, res) => {
+  const oldTitle = req.params.title;
+  const { newTitle, content, date, category } = req.body;
+
+  // Validación de campos
+  if (!newTitle || !content || !date || !category) {
+    return res.status(400).json({ message: "Faltan campos en el body" });
+  }
+
+  try {
+    const result = await modelUpdateEntryByTitle(
+      oldTitle,
+      newTitle,
+      content,
+      category
+    );
+
+    if (result.rowCount === 0) {
+      return res
+        .status(404)
+        .json({ message: `No se encontró entry con título '${oldTitle}'` });
     }
-  } else {
-    res.status(400).json({ error: "Faltan campos en la entrada" });
+
+    return res.status(200).json({
+      message: `Entrada '${oldTitle}' actualizada correctamente`,
+      updated: result.rows[0],
+    });
+  } catch (err) {
+    console.error("Error actualizando entry:", err);
+    return res
+      .status(500)
+      .json({ message: "Error interno al modificar la entry" });
   }
 };
 
 // Delete entries by title
-
 const deleteEntry = async (req, res) => {
   const title = req.params.title;
 
   try {
-    const result = await deleteEntryByTitle(title);
+    const result = await modelDeleteEntryByTitle(title);
 
     if (result.rowCount === 0) {
-      // no había ninguna fila con ese título
-      return res.status(404).json({ message: "Entrada no encontrada" });
+      return res
+        .status(404)
+        .json({ message: `No se encontró entry con título '${title}'` });
     }
 
-    // borró exactamente 1 fila
     return res.status(200).json({
       message: `Entrada '${title}' borrada correctamente`,
       deleted: result.rows[0],
     });
   } catch (err) {
-    console.error("Error borrando entrada:", err);
-    return res.status(500).json({ message: "Error en el servidor al borrar" });
+    console.error("Error borrando entry:", err);
+    return res
+      .status(500)
+      .json({ message: "Error interno al borrar la entry" });
   }
 };
 
 module.exports = {
-  updateEntryByTitle,
+  updateEntry,
   deleteEntry,
 };
