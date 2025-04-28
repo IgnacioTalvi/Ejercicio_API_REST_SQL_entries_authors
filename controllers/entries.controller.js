@@ -25,56 +25,31 @@ const updateEntryByTitle = async (req, res) => {
   }
 };
 
-// GET http://localhost:3000/entries --> ALL
-// GET http://localhost:3000/entries?email=hola@gmail.com --> por email
-const getEntries = async (req, res) => {
-  let entries;
-  if (req.query.email) {
-    entries = await entry.getEntriesByEmail(req.query.email);
-  } else {
-    entries = await entry.getAllEntries();
-  }
-  res.status(200).json(entries); // [] con las entries encontradas
-};
+// Delete entries by title
 
-//createEntry
-// POST http://localhost:3000/api/entries
-// let newEntry = {
-//     title:"noticia desde Node",
-//     content:"va a triunfar esto2",
-//     email:"alejandru@thebridgeschool.es",
-//     category:"sucesos"}
+const deleteEntry = async (req, res) => {
+  const title = req.params.title;
 
-const updateEntry = (req, res) => {
-  console.log(req.body); // por body se recibe el libro a editar
   try {
-    //llamar al modelo entries
-    //pasarle criterio de busqueda(titulo antiguo) + datos actualizados
+    const result = await deleteEntryByTitle(title);
 
-    //devolver resultado por json
+    if (result.rowCount === 0) {
+      // no había ninguna fila con ese título
+      return res.status(404).json({ message: "Entrada no encontrada" });
+    }
 
-    res.status(200).json();
-  } catch (error) {
-    res.status(400).send(error);
+    // borró exactamente 1 fila
+    return res.status(200).json({
+      message: `Entrada '${title}' borrada correctamente`,
+      deleted: result.rows[0],
+    });
+  } catch (err) {
+    console.error("Error borrando entrada:", err);
+    return res.status(500).json({ message: "Error en el servidor al borrar" });
   }
-};
-
-// Crear entry por email
-const createEntry = async (req, res) => {
-  const newEntry = req.body; // {title,content,email,category}
-  const response = await entry.createEntry(newEntry);
-  res.status(201).json({
-    items_created: response,
-    data: newEntry,
-  });
 };
 
 module.exports = {
   updateEntryByTitle,
-  getEntries,
-  createEntry,
-  updateEntry,
-
-  //deleteEntry, --> DELETE
-  //updateEntry --> PUT
+  deleteEntry,
 };
