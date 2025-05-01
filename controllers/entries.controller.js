@@ -64,6 +64,9 @@ const deleteEntry = async (req, res) => {
   }
 };
 
+// Return all authors
+const returnAllAuthors = 
+
 module.exports = {
   updateEntry,
   deleteEntry,

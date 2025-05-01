@@ -5,6 +5,9 @@ const router = express.Router();
 // Return all authors data
 router.get("/", authorController.getAllAuthors);
 
+// Return authors by email
+router.get("/:email", authorController.getAuthorByEmail);
+
 // router.get("/", authorController.getAllAuthors);
 router.put("/", authorController.updateAuthor);
 

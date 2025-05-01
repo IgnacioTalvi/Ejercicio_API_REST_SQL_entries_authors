@@ -17,6 +17,22 @@ const getAllAuthors = async () => {
   return result;
 };
 
+// GET author by email
+const getAuthorsByEmail = async (email) => {
+  let client, result;
+  try {
+    client = await pool.connect(); // Espera a abrir conexion
+    const data = await client.query(queries.getAuthorByEmail, [email]);
+    result = data.rows;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  } finally {
+    client.release();
+  }
+  return result;
+};
+
 const updateAuthor = async (req, res) => {
   const modifiedEntry = req.body;
   if (
@@ -52,22 +68,6 @@ const createAuthor = async (entry) => {
       category,
     ]);
     result = data.rowCount;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  } finally {
-    client.release();
-  }
-  return result;
-};
-
-// GET author by email
-const getAuthorsByEmail = async (email) => {
-  let client, result;
-  try {
-    client = await pool.connect(); // Espera a abrir conexion
-    const data = await client.query(queries.getAuthorByEmail, [email]);
-    result = data.rows;
   } catch (err) {
     console.log(err);
     throw err;

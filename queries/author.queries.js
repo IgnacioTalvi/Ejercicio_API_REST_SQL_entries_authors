@@ -2,7 +2,9 @@ const getAllAuthors = `SELECT
       *
     FROM authors;`;
 
-const getAuthorByEmail = `SELECT * FROM authors WHERE email = $1`;
+const getAuthorByEmail = `SELECT 
+      * 
+    FROM authors WHERE email = $1`;
 
 const queries = `SELECT 
       entries.title, 
