@@ -1,5 +1,4 @@
 // Import database model
-const author = require("../models/authors.model");
 const authorsModel = require("../models/authors.model");
 const entriesModel = require("../models/entries.model");
 
@@ -49,18 +48,17 @@ const updateAuthor = async (req, res) => {
   }
 };
 
-// DELETE one author
-const deleteAuthor = (req, res) => {
-  console.log(req.query);
-  // Lógica para borrar de la bbdd por título y autor
-  // DELETE FROM books WHERE title = req.query.title AND author = req.query.author
-  res.send(`Libro borrado: ${req.query.title} - ${req.query.author}`);
-};
+// // DELETE one author
+// const deleteAuthor = (req, res) => {
+//   console.log(req.query);
+//   // Lógica para borrar de la bbdd por título y autor
+//   // s FROM books WHERE title = req.query.title AND author = req.query.author
+//   res.send(`Libro borrado: ${req.query.title} - ${req.query.author}`);
+// };
 
 module.exports = {
   getAllAuthors,
   getAuthorByEmail,
   createAuthor,
   updateAuthor,
-  deleteAuthor,
 };

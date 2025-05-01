@@ -1,8 +1,8 @@
 const pool = require("../config/db_pgsql"); // conexión a la BBDD
-const { deleteAuthor } = require("../controllers/authors.controller");
+// const { deleteAuthor } = require("../controllers/authors.controller");
 const queries = require("../queries/author.queries"); // Queries SQL
 
-// GET
+// GET all authors
 const getAllAuthors = async () => {
   let client, result;
   try {
@@ -35,25 +35,21 @@ const getAuthorsByEmail = async (email) => {
 };
 
 // CREATE author
-const createAuthor = async (entry) => {
-  const { name, surname, email, image } = entry;
-  let client, result;
+const createAuthor = async ({ name, surname, email, image }) => {
+  const client = await pool.connect();
   try {
-    client = await pool.connect(); // Espera a abrir conexion
     const data = await client.query(queries.createAuthor, [
       name,
       surname,
       email,
       image,
     ]);
-    result = data.rowCount;
+    return data.rowCount;
   } catch (err) {
-    console.log(err);
     throw err;
   } finally {
     client.release();
   }
-  return result;
 };
 
 // UPDATE author
@@ -79,15 +75,11 @@ const updateAuthor = async (req, res) => {
   }
 };
 
-// // DELETE author
-// const deleteAuthor = async();
-
 const entries = {
   getAllAuthors,
   getAuthorsByEmail,
   createAuthor,
   updateAuthor,
-  deleteAuthor,
 };
 
 module.exports = entries;
