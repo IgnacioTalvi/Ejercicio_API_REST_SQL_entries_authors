@@ -8,6 +8,9 @@ router.get("/", authorController.getAllAuthors);
 // Return authors by email
 router.get("/:email", authorController.getAuthorByEmail);
 
+// Create author
+router.post("/", authorController.createAuthor);
+
 // router.get("/", authorController.getAllAuthors);
 router.put("/", authorController.updateAuthor);
 

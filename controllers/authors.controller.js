@@ -9,7 +9,7 @@ const getAllAuthors = async (req, res) => {
   res.status(200).json(data); // [] con las entries encontradas
 };
 
-// Get author by search
+// Get author by email search
 const getAuthorByEmail = async (req, res) => {
   let entries;
   if (req.query.email) {
@@ -20,33 +20,32 @@ const getAuthorByEmail = async (req, res) => {
   res.status(200).json(entries); // [] con las entries encontradas
 };
 
-// GET one author
-const updateAuthor = (req, res) => {
-  console.log(req.body); // por body se recibe el libro a editar
-  if (req.body.title && req.body.author) {
-    // Lógica para editar el libro en la BBDD
-    // UPDATE books SET title = req.body.title, author = req.body.author WHERE id = req.body.id
-    //..
+// Crear autor
+const createAuthor = async (req, res) => {
+  const { name, surname, email, image } = req.body;
 
-    let book = {
-      title: "Don Quijote de la Mancha",
-      author: "Miguel de Cervantes",
-      pages: 2000,
-      year: 1550,
-      description: "en un lugar de la mancha...",
-    };
+  try {
+    await createAuthor(name, surname, email, image);
+    res.status(201).send({ message: `Usuario creado: ${email}` });
+  } catch (err) {
+    console.error(err);
+    res.status(400).send({ message: "Error al crear el autor" });
+  }
+};
 
-    let newBook = { ...book, ...req.body }; // Actualizar el libro con los nuevos datos
+// Modificar autor
+const updateAuthor = async (req, res) => {
+  const { name, surname, email, image } = req.body;
 
-    res.status(200).json({
-      success: true,
-      action: "update",
-      title: req.body.title,
-      id: Math.floor(Math.random() * (10000 - 1) + 1),
-      data: newBook,
-    });
-  } else {
-    res.status(400).send("Petición incorrecta");
+  try {
+    const result = await updateAuthor(name, surname, email, image);
+    if (result.rowCount === 0) {
+      return res.status(404).send({ message: "Autor no encontrado" });
+    }
+    res.status(200).send({ message: `Usuario actualizado: ${email}` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Error al actualizar autor" });
   }
 };
 
@@ -61,6 +60,7 @@ const deleteAuthor = (req, res) => {
 module.exports = {
   getAllAuthors,
   getAuthorByEmail,
+  createAuthor,
   updateAuthor,
   deleteAuthor,
 };
