@@ -11,9 +11,10 @@ router.get("/:email", authorController.getAuthorByEmail);
 // Create author
 router.post("/", authorController.createAuthor);
 
-// router.get("/", authorController.getAllAuthors);
+// Update author
 router.put("/", authorController.updateAuthor);
 
-// router.delete("/", authorController.deleteAuthor);
+// Delete author
+router.delete("/", authorController.deleteAuthor);
 
 module.exports = router;

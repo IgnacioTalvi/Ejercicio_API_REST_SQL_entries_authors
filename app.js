@@ -1,8 +1,10 @@
 const express = require("express"); // importar express
+const morgan = require("morgan"); // importar morgan
 const app = express(); // crear el servidor --> Objeto de la clase express
 const port = 3000; // puerto donde se ejecuta el servidor
 
 app.use(express.json()); // middleware para parsear el body a JSON
+app.use(morgan("dev")); // Use morgan
 
 const entriesRoutes = require("./routes/entries.routes");
 const authorsRoutes = require("./routes/authors.routes");

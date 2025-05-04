@@ -48,17 +48,32 @@ const updateAuthor = async (req, res) => {
   }
 };
 
-// // DELETE one author
-// const deleteAuthor = (req, res) => {
-//   console.log(req.query);
-//   // Lógica para borrar de la bbdd por título y autor
-//   // s FROM books WHERE title = req.query.title AND author = req.query.author
-//   res.send(`Libro borrado: ${req.query.title} - ${req.query.author}`);
-// };
+// Delete author
+const deleteAuthor = async (req, res) => {
+  const { email } = req.query;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email requerido" });
+  }
+
+  try {
+    const deleted = await authorsModel.deleteAuthorByEmail(email);
+    if (deleted === 0) {
+      return res
+        .status(404)
+        .json({ message: `No se encontró el autor con email ${email}` });
+    }
+    res.status(200).json({ message: `Se ha borrado ${email}` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error al borrar el autor" });
+  }
+};
 
 module.exports = {
   getAllAuthors,
   getAuthorByEmail,
   createAuthor,
   updateAuthor,
+  deleteAuthor,
 };

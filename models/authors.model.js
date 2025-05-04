@@ -75,11 +75,25 @@ const updateAuthor = async (req, res) => {
   }
 };
 
+// DELETE author by email
+const deleteAuthor = async (email) => {
+  const client = await pool.connect();
+  try {
+    const result = await client.query(queries.deleteAuthorByEmail, [email]);
+    return result.rowCount;
+  } catch (err) {
+    throw err;
+  } finally {
+    client.release();
+  }
+};
+
 const entries = {
   getAllAuthors,
   getAuthorsByEmail,
   createAuthor,
   updateAuthor,
+  deleteAuthor,
 };
 
 module.exports = entries;
